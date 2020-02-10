@@ -10,15 +10,17 @@ let food = { // variavel da comidinha
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box,
 }
+let pontuacao = 0;
+
 
 function criarBG(){  //metodo que cria a tela
-    context.fillStyle = "lightgreen"; 
+    context.fillStyle = "black"; 
     context.fillRect(0, 0, 16 * box, 16 * box); //tamanho da tela nas coordenadas x e y
 }
 
 function criarCobrinha(){ //metodo de criação da cobrinha
     for(i = 0; i < snake.length; i++){
-        context.fillStyle = "black";
+        context.fillStyle = "wheat";
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
 }
@@ -38,6 +40,7 @@ function update (event){  // função que recebe o evento do botão
 }
 
 function iniciarJogo(){
+    
         //evita que a cobrinha saia da tela
     if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
     if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
@@ -68,6 +71,8 @@ function iniciarJogo(){
     }else{
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
+        pontuacao += 100;
+        document.getElementById("pontos").innerHTML = pontuacao;
     }
 
 
