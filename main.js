@@ -6,6 +6,10 @@ snake[0] = {
     x: 8 * box, y: 8 * box  // coordenadas iniciando no meio da tela
 }
 let direction = "right";
+let food = { // variavel da comidinha
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box,
+}
 
 function criarBG(){  //metodo que cria a tela
     context.fillStyle = "lightgreen"; 
@@ -19,9 +23,14 @@ function criarCobrinha(){ //metodo de criação da cobrinha
     }
 }
 
+function Comidinha(){ // metodo que cria a comidinha
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box, box);
+}
+
 document.addEventListener('keydown', update);
 
-function update (event){
+function update (event){  // função que recebe o evento do botão
     if(event.keyCode == 37 && direction != "right") direction = "left";
     if(event.keyCode == 38 && direction != "down") direction = "up";
     if(event.keyCode == 39 && direction != "left") direction = "right";
@@ -29,6 +38,7 @@ function update (event){
 }
 
 function iniciarJogo(){
+        //evita que a cobrinha saia da tela
     if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
     if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
     if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
@@ -36,6 +46,7 @@ function iniciarJogo(){
 
     criarBG();
     criarCobrinha();
+    Comidinha();
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
